@@ -1,8 +1,21 @@
+
 const electron = require("electron");
 require('electron-reload')(__dirname);
 const url = require("url");
 const path = require("path");
 
+const { default: installExtension, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } = require('electron-devtools-installer');
+
+installExtension(REDUX_DEVTOOLS, REACT_DEVELOPER_TOOLS )
+    .then((name) => console.log(`Added Extension:  ${name}`))
+    .catch((err) => console.log('An error occurred: ', err));
+// installExtension( REACT_DEVELOPER_TOOLS )
+// .then((name) => console.log(`Added Extension:  ${name}`))
+// .catch((err) => console.log('An error occurred: ', err));
+
+// installExtension(REACT_DEVELOPER_TOOLS)
+//     .then((name) => console.log(`Added Extension:  ${name}`))
+//     .catch((err) => console.log('An error occurred: ', err));
 
 const { app, BrowserWindow, Menu } = electron;
 
@@ -14,7 +27,7 @@ app.on("ready", function(){
         mainWindow = new BrowserWindow({});
         mainWindow.webContents.openDevTools();
         mainWindow.loadURL(url.format({
-            pathname: path.join(__dirname, "main.html"),
+            pathname: path.join(__dirname, "dist", "index.html"),
             protocol: "file:",
             slashes: true
         }));
